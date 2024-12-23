@@ -8,16 +8,23 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: configure
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Install Dependencies
+      run: apt-get update && apt-get install -y build-essential autotools-dev autoconf libtool
+
+    - name: Configure
       run: ./configure
-    - name: make
+
+    - name: Build
       run: make
-    - name: make check
+
+    - name: Run Tests
       run: make check
-    - name: make distcheck
+
+    - name: Validate Distribution
       run: make distcheck
